@@ -3,22 +3,33 @@ import React, {
   FC,
   MouseEvent,
   useContext,
+  useEffect,
   useState,
 } from "react";
 import { storeContext } from "../Store";
 
 const TodoForm: FC = () => {
   const { state, dispatch } = useContext(storeContext);
-  const [values, SetValues] = useState<{ title: string }>({ title: "" });
+  const [values, SetValues] = useState<{ title: string; tagId: number }>({
+    title: "",
+    tagId: 1,
+  });
 
   const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
     SetValues((values) => ({ ...values, title: e.target.value }));
   };
 
+  const handleTagChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    SetValues((values) => ({ ...values, tagId: parseInt(e.target.value) }));
+  };
+
   const handleClick = (e: MouseEvent) => {
     dispatch({ type: "ADDTODO", payload: { values } });
-    SetValues({ title: "" });
+    SetValues({ title: "", tagId: 1 });
   };
+  useEffect(() => {
+    dispatch({ type: "FETCHTAGS" });
+  }, []);
   return (
     <div className="flex justify-center items-center mt-8">
       <div className="flex items-end">
@@ -70,12 +81,17 @@ const TodoForm: FC = () => {
           </label>
 
           <select
+            onChange={handleTagChange}
+            value={values.tagId}
             id="tag"
             name="tag"
             className="mt-1 block w-full pl-3 pr-32 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
           >
-            <option>Sport</option>
-            <option>Study</option>
+            {state.tags.map((tag: Tag) => (
+              <option value={tag.id} key={tag.id}>
+                {tag.name}
+              </option>
+            ))}
           </select>
         </div>
       </div>

@@ -1,16 +1,29 @@
 {
+  "tags": [
+    {
+      "id": 1,
+      "name": "hobby"
+    },
+    {
+      "id": 2,
+      "name": "study"
+    }
+  ],
   "todos": [
     {
       "title": "setup beers",
-      "id": 1
+      "id": 1,
+      "tagId": 1
     },
     {
       "title": "setup chips",
-      "id": 2
+      "id": 2,
+      "tagId": 1
     },
     {
       "title": "watch Film",
-      "id": 3
+      "id": 3,
+      "tagId": 2
     }
   ],
   "users": []

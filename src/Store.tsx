@@ -4,6 +4,7 @@ import { useReducerAsync } from "use-reducer-async";
 const initialStoreContext = {
   state: {
     todos: [],
+    tags: [],
   },
 };
 
@@ -11,9 +12,9 @@ const initialStoreContext = {
 const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case "SET_TODOS":
-      //   console.log("SET_TODOS");
-      //   console.log(action.payload);
       return { ...state, todos: action.payload };
+    case "SET_TAGS":
+      return { ...state, tags: action.payload };
     default:
       return state;
   }
@@ -24,6 +25,25 @@ const baseHeaders = {
   "Content-Type": "application/json",
 };
 const asyncActionHandler: any = {
+  FETCHTAGS:
+    ({ dispatch }: { dispatch: ({}: Action) => {} }) =>
+    async (action: Action) => {
+      console.log("FETCHTAGS");
+      const fetchSettings = {
+        method: "GET",
+        headers: baseHeaders,
+      };
+      try {
+        const response = await fetch(
+          "http://localhost:8000/tags",
+          fetchSettings
+        );
+        const tags = await response.json();
+        dispatch({ type: "SET_TAGS", payload: tags });
+      } catch (e) {
+        console.log(e);
+      }
+    },
   FETCHTODOS:
     ({ dispatch }: { dispatch: ({}: Action) => {} }) =>
     async (action: Action) => {
@@ -34,7 +54,7 @@ const asyncActionHandler: any = {
       };
       try {
         const response = await fetch(
-          "http://localhost:8000/todos",
+          "http://localhost:8000/todos?_expand=tag",
           fetchSettings
         );
         const todos = await response.json();
@@ -64,7 +84,7 @@ const asyncActionHandler: any = {
             headers: baseHeaders,
           };
           const response = await fetch(
-            "http://localhost:8000/todos",
+            "http://localhost:8000/todos?_expand=tag",
             fetchSettings
           );
           const todos = await response.json();
@@ -96,7 +116,7 @@ const asyncActionHandler: any = {
             headers: baseHeaders,
           };
           const response = await fetch(
-            "http://localhost:8000/todos",
+            "http://localhost:8000/todos?_expand=tag",
             fetchSettings
           );
           const todos = await response.json();

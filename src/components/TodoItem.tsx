@@ -9,6 +9,7 @@ const TodoItem: FC<{ todo: Todo }> = ({ todo }) => {
   };
   return (
     <li className="p-4 flex items-center justify-between hover:bg-gray-50">
+      {console.log({ todo })}
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center">
           <button onClick={handleDelete}>
@@ -29,7 +30,7 @@ const TodoItem: FC<{ todo: Todo }> = ({ todo }) => {
           </button>
           {todo.title}
           <span className="text-xs rounded-lg bg-green-300 text-green-800 ml-4 px-3">
-            Sports
+            {todo.tag.name}
           </span>
         </div>
         <svg
