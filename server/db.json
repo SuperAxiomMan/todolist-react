@@ -1,17 +1,17 @@
 {
-    "todos": [
-        {
-            "title": "setup beers",
-            "id": 1
-        },
-        {
-            "title": "setup chips",
-            "id": 2
-        },
-        {
-            "title": "watch Film",
-            "id": 3
-        }
-    ],
-    "users": []
+  "todos": [
+    {
+      "title": "setup beers",
+      "id": 1
+    },
+    {
+      "title": "setup chips",
+      "id": 2
+    },
+    {
+      "title": "watch Film",
+      "id": 3
+    }
+  ],
+  "users": []
 }

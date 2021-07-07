@@ -1,11 +1,17 @@
-import React from "react";
+import React, { FC, MouseEvent, useContext } from "react";
+import { storeContext } from "../Store";
 
-const TodoItem = () => {
+const TodoItem: FC<{ todo: Todo }> = ({ todo }) => {
+  const { state, dispatch } = useContext(storeContext);
+  const handleDelete = (e: MouseEvent) => {
+    console.log("Delete Item", todo.id);
+    dispatch({ type: "DELETETODO", payload: { id: todo.id } });
+  };
   return (
     <li className="p-4 flex items-center justify-between hover:bg-gray-50">
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center">
-          <button className="">
+          <button onClick={handleDelete}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6 mr-4 duration-200 text-red-500 hover:text-red-700"
@@ -20,12 +26,11 @@ const TodoItem = () => {
                 d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
-            </button>
-            Title of my Todo
-            <span className="text-xs rounded-lg bg-green-300 text-green-800 ml-4 px-3">
-              Sports
-            </span>
-          
+          </button>
+          {todo.title}
+          <span className="text-xs rounded-lg bg-green-300 text-green-800 ml-4 px-3">
+            Sports
+          </span>
         </div>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -46,4 +51,4 @@ const TodoItem = () => {
   );
 };
 
-export default TodoItem
+export default TodoItem;
