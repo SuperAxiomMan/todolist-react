@@ -19,7 +19,7 @@ type Action =
   | SetTodos
   | SetTags
   | FetchTodos
-  | AddTodos
+  | AddTodo
   | DeleteTodo
   | FetchTags;
 
@@ -37,8 +37,8 @@ interface FetchTodos {
   type: "FETCHTODOS";
   payload: any;
 }
-interface AddTodos {
-  type: "ADDTODOS";
+interface AddTodo {
+  type: "ADDTODO";
   payload: {};
 }
 interface DeleteTodo {

@@ -25,7 +25,7 @@ const TodoForm: FC = () => {
   };
 
   const handleClick = (e: MouseEvent) => {
-    dispatch({ type: "ADDTODOS", payload: { values } });
+    dispatch({ type: "ADDTODO", payload: { values } });
     SetValues({ title: "", tagId: 1 });
   };
   useEffect(() => {
