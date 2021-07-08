@@ -7,8 +7,7 @@
     "build": "tsc && vite build",
     "serve": "vite preview",
     "e2e:open": "cypress open",
-    "e2e:run": "cypress run",
-    "start": "node index.js"
+    "e2e:run": "cypress run"
   },
   "dependencies": {
     "react": "^17.0.0",
