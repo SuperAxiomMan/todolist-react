@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { storeContext } from "../Store";
+import { Tag } from "../types";
 
 const TodoForm: FC = () => {
   const { state, dispatch } = useContext(storeContext);
@@ -24,11 +25,11 @@ const TodoForm: FC = () => {
   };
 
   const handleClick = (e: MouseEvent) => {
-    dispatch({ type: "ADDTODO", payload: { values } });
+    dispatch({ type: "ADDTODOS", payload: { values } });
     SetValues({ title: "", tagId: 1 });
   };
   useEffect(() => {
-    dispatch({ type: "FETCHTAGS" });
+    dispatch({ type: "FETCHTAGS", payload: {} });
   }, []);
   return (
     <div className="flex justify-center items-center mt-8">
