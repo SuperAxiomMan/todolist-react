@@ -19,7 +19,18 @@
       "title": "setup chips",
       "id": 2,
       "tagId": 1
+    },
+    {
+      "title": "Path router",
+      "tagId": 2,
+      "id": 3
     }
   ],
-  "users": []
+  "users": [
+    {
+      "email": "test@test.test",
+      "password": "$2a$10$8T9a2KKZe2lx0USGqrSOI.TUkD9O7RzydWf342s8lUOBYLh5aWJrO",
+      "id": 1
+    }
+  ]
 }

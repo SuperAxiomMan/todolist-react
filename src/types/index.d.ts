@@ -21,7 +21,10 @@ type Action =
   | FetchTodos
   | AddTodo
   | DeleteTodo
-  | FetchTags;
+  | FetchTags
+  | Login
+  | Register
+  | SetJwt;
 
 type Context = { state: State; dispatch: Dispatch<Action> };
 
@@ -48,4 +51,18 @@ interface DeleteTodo {
 interface FetchTags {
   type: "FETCHTAGS";
   payload: any;
+}
+
+interface Register {
+  type: "REGISTER";
+  payload: any;
+}
+interface Login {
+  type: "LOGIN";
+  payload: any;
+}
+
+interface SetJwt {
+  type: "SET_JWT";
+  payload: string;
 }

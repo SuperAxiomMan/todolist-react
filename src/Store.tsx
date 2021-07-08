@@ -1,6 +1,7 @@
 import React, { createContext, PropsWithChildren, useReducer } from "react";
 import { useReducerAsync } from "use-reducer-async";
 import { Action, Context, State } from "./types";
+import { navigate } from "@reach/router";
 
 const initialStoreContext: Context = {
   state: {
@@ -17,6 +18,11 @@ const reducer = (state: State, action: Action) => {
       return { ...state, todos: action.payload };
     case "SET_TAGS":
       return { ...state, tags: action.payload };
+    case "SET_JWT":
+      console.log("SET_JWT");
+      navigate("/todos");
+      return { ...state, jwt: action.payload };
+
     default:
       return state;
   }
@@ -128,7 +134,59 @@ const asyncActionHandler: any = {
         console.log(e);
       }
     },
+  REGISTER:
+    ({ dispatch }: { dispatch: ({}: Action) => {} }) =>
+    async (action: Action) => {
+      console.log("REGISTER");
+      const fetchSettings = {
+        method: "POST",
+        headers: baseHeaders,
+        body: JSON.stringify(action.payload),
+      };
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URI}/signup`,
+          fetchSettings
+        );
+        if (!response.ok) {
+          console.log("ERROR");
+        } else {
+          // console.log(await response.json());
+          navigate("/");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  LOGIN:
+    ({ dispatch }: { dispatch: ({}: Action) => {} }) =>
+    async (action: Action) => {
+      console.log("LOGIN");
+      const fetchSettings = {
+        method: "POST",
+        headers: baseHeaders,
+        body: JSON.stringify(action.payload),
+      };
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URI}/signin`,
+          fetchSettings
+        );
+        if (!response.ok) {
+          console.log("ERROR");
+        } else {
+          dispatch({
+            type: "SET_JWT",
+            payload: (await response.json()).accessToken,
+          });
+          // navigate("/");
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
 };
+
 //=Context=>
 
 const storeContext = createContext(initialStoreContext);
