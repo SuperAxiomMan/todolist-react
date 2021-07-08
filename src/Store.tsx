@@ -7,6 +7,8 @@ const initialStoreContext: Context = {
   state: {
     todos: [],
     tags: [],
+    jwt: "",
+    error: null,
   },
   dispatch: (_a: any) => {},
 };
@@ -22,6 +24,9 @@ const reducer = (state: State, action: Action) => {
       console.log("SET_JWT");
       navigate("/todos");
       return { ...state, jwt: action.payload };
+    case "SET_ERROR":
+      console.log("SET_ERROR");
+      return { ...state, error: action.payload };
 
     default:
       return state;
@@ -150,6 +155,8 @@ const asyncActionHandler: any = {
         );
         if (!response.ok) {
           console.log("ERROR");
+          const errorMsg = await response.text();
+          dispatch({ type: "SET_ERROR", payload: errorMsg });
         } else {
           // console.log(await response.json());
           navigate("/");
@@ -174,6 +181,8 @@ const asyncActionHandler: any = {
         );
         if (!response.ok) {
           console.log("ERROR");
+          const errorMsg = await response.text();
+          dispatch({ type: "SET_ERROR", payload: errorMsg });
         } else {
           dispatch({
             type: "SET_JWT",

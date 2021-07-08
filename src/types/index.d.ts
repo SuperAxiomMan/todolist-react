@@ -3,6 +3,8 @@ import { Dispatch } from "react";
 interface State {
   todos: Todo[];
   tags: Tag[];
+  jwt: string;
+  error: string | null;
 }
 interface Todo {
   id: any;
@@ -24,7 +26,8 @@ type Action =
   | FetchTags
   | Login
   | Register
-  | SetJwt;
+  | SetJwt
+  | Error;
 
 type Context = { state: State; dispatch: Dispatch<Action> };
 
@@ -64,5 +67,10 @@ interface Login {
 
 interface SetJwt {
   type: "SET_JWT";
+  payload: string;
+}
+
+interface Error {
+  type: "SET_ERROR";
   payload: string;
 }
